@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Jaap - Unique B&W Style</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; text-transform: uppercase; letter-spacing: 2px; }
+        #counter { font-size: 120px; font-weight: bold; margin: 20px 0; border: 4px solid #fff; padding: 20px 50px; border-radius: 100px; }
+        .tap-area { width: 100%; height: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        .footer { position: fixed; bottom: 20px; font-size: 12px; opacity: 0.6; }
+        button { background: none; border: 1px solid #fff; color: #fff; padding: 10px 20px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #fff; color: #000; }
+    </style>
+</head>
+<body onclick="increment()">
+
+    <div style="font-size: 20px;">ॐ नमो भगवते वासुदेवाय</div>
+    <div id="counter">0</div>
+    <div style="font-size: 14px;">स्क्रीन पर कहीं भी टच करें</div>
+    
+    <div class="footer">
+        <button onclick="resetCounter(event)">RESET</button>
+    </div>
+
+    <script>
+        let count = localStorage.getItem('jaapCount') || 0;
+        document.getElementById('counter').innerText = count;
+
+        function increment() {
+            count++;
+            document.getElementById('counter').innerText = count;
+            localStorage.setItem('jaapCount', count);
+            // Haptic feedback for mobile
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function resetCounter(e) {
+            e.stopPropagation(); // ताकि रिसेट बटन दबाने पर काउंट न बढ़े
+            if(confirm("क्या आप काउंट जीरो करना चाहते हैं?")) {
+                count = 0;
+                document.getElementById('counter').innerText = count;
+                localStorage.setItem('jaapCount', count);
+            }
+        }
+    </script>
+</body>
+</html>
